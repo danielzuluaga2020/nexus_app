@@ -3,110 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus — App Style</title>
+    <title>Nexus — Conecta de verdad</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-<div id="loader" class="loader"><div class="loader-content"><p>Cargando...</p></div></div>
+<div id="loader" class="loader">
+    <div class="loader-content">
+        <div class="wave-loader">
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+        </div>
+        <p>Cargando Nexus...</p>
+    </div>
+</div>
 
-<div class="app-layout">
-    
-    <aside class="sidebar" id="navbar">
+<div class="particles-bg" id="particlesBg"></div>
+
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
         <div class="nav-logo" onclick="showSection('home')">
             <div class="logo-icon"><i class="fas fa-heart"></i></div>
             <span>nexus</span>
         </div>
-        
         <div class="nav-menu" id="navMenu">
-            <a href="#" class="nav-link active" data-section="home" onclick="showSection('home')">
-                <i class="fas fa-home"></i> <span>Inicio</span>
-            </a>
-            <a href="#" class="nav-link" data-section="explore" onclick="showSection('explore')">
-                <i class="fas fa-layer-group"></i> <span>Descubrir</span>
-            </a>
-            <a href="#" class="nav-link" data-section="matches" onclick="showSection('matches')">
-                <i class="fas fa-comment-dots"></i> <span>Chats & Matches</span>
-            </a>
-            <a href="#" class="nav-link" data-section="stats" onclick="showSection('stats')">
-                <i class="fas fa-chart-pie"></i> <span>Métricas</span>
-            </a>
+            <a href="#" class="nav-link active" data-section="home" onclick="showSection('home')"><i class="fas fa-home"></i> Inicio</a>
+            <a href="#" class="nav-link" data-section="explore" onclick="showSection('explore')"><i class="fas fa-compass"></i> Explorar</a>
+            <a href="#" class="nav-link" data-section="matches" onclick="showSection('matches')"><i class="fas fa-heart"></i> Matches</a>
+            <a href="#" class="nav-link" data-section="stats" onclick="showSection('stats')"><i class="fas fa-chart-bar"></i> Stats</a>
+            <a href="#" class="nav-link" data-section="about" onclick="showSection('about')"><i class="fas fa-info-circle"></i> Acerca de</a>
         </div>
-
         <div class="nav-actions">
-            <button class="btn-login" id="btnLogin" onclick="openModal('loginModal')">
-                <i class="fas fa-sign-in-alt"></i> <span>Entrar</span>
-            </button>
-            
+            <button class="btn-login" id="btnLogin" onclick="openModal('loginModal')"><i class="fas fa-sign-in-alt"></i> Entrar</button>
             <button class="btn-user-menu" id="btnUserMenu" style="display:none" onclick="toggleUserDropdown()">
                 <div class="user-avatar" id="userAvatarNav">U</div>
-                <span id="userNameNav" style="display: none;">Usuario</span>
+                <span id="userNameNav">Usuario</span>
+                <i class="fas fa-chevron-down"></i>
             </button>
-            
             <div class="user-dropdown" id="userDropdown">
                 <a href="#" onclick="showSection('profile')"><i class="fas fa-user"></i> Mi Perfil</a>
+                <a href="#" onclick="showSection('mymatches')"><i class="fas fa-heart"></i> Mis Matches</a>
                 <a href="#" onclick="showSection('settings')"><i class="fas fa-cog"></i> Ajustes</a>
                 <a href="#" id="adminLink" style="display:none" onclick="showSection('admin')"><i class="fas fa-shield-alt"></i> Panel Admin</a>
                 <hr>
-                <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Salir</a>
+                <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" onclick="toggleNav()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<section class="section active" id="sectionHome">
+    <div class="hero">
+        <div class="hero-particles" id="heroParticles"></div>
+        <div class="hero-content">
+            <div class="hero-badge animate-fade-down"><i class="fas fa-bolt"></i> Más de 2 millones de conexiones reales</div>
+            <h1 class="hero-title animate-fade-up">Encuentra tu <span class="gradient-text">conexión</span> real<div class="title-decoration"></div></h1>
+            <p class="hero-subtitle animate-fade-up delay-1">Nexus usa inteligencia de compatibilidad para acercarte a personas que comparten tu esencia.</p>
+            <div class="hero-buttons animate-fade-up delay-2">
+                <button class="btn btn-primary btn-lg" onclick="handleStartMatch()"><i class="fas fa-heart"></i> Empezar ahora</button>
+                <button class="btn btn-outline btn-lg" onclick="showSection('explore')"><i class="fas fa-compass"></i> Explorar perfiles</button>
+            </div>
+            <div class="hero-stats animate-fade-up delay-3">
+                <div class="hero-stat"><div class="hero-stat-number" id="statUsers">0</div><div class="hero-stat-label"><i class="fas fa-users"></i> Usuarios</div></div>
+                <div class="hero-stat"><div class="hero-stat-number" id="statMatches">0</div><div class="hero-stat-label"><i class="fas fa-heart"></i> Matches</div></div>
+                <div class="hero-stat"><div class="hero-stat-number" id="statCountries">0</div><div class="hero-stat-label"><i class="fas fa-globe"></i> Países</div></div>
+                <div class="hero-stat"><div class="hero-stat-number" id="statCouples">0</div><div class="hero-stat-label"><i class="fas fa-ring"></i> Parejas</div></div>
             </div>
         </div>
-    </aside>
-
-    <main class="app-main">
-        
-        <section class="section active" id="sectionHome">
-            <div class="split-hero">
-                <div class="hero-text">
-                    <h1 class="hero-title">Conexiones<br>reales, sin<br>complicaciones.</h1>
-                    <p class="hero-subtitle">La app diseñada para conocer personas que vibran en tu misma frecuencia.</p>
-                    <button class="btn btn-primary btn-lg" onclick="handleStartMatch()">Empezar ahora</button>
-                </div>
-                <div class="hero-visual-app">
-                    <div id="recentProfilesHome" class="masonry-grid"></div>
+        <div class="hero-visual animate-fade-left">
+            <div class="match-scene">
+                <div class="match-circle">
+                    <div class="floating-card"><div class="fc-avatar">🎸</div><div><div class="fc-name">Andrés, 29</div><div class="fc-meta">📍 Medellín</div></div><div class="fc-match">94%</div></div>
+                    <div class="floating-card"><div class="fc-avatar">🎨</div><div><div class="fc-name">Valentina, 25</div><div class="fc-meta">📍 Bogotá</div></div><div class="fc-match">91%</div></div>
+                    <div class="floating-card"><div class="fc-avatar">📚</div><div><div class="fc-name">Camila, 26</div><div class="fc-meta">📍 Cali</div></div><div class="fc-match">88%</div></div>
+                    <div class="heart-float">♥</div><div class="heart-float">♥</div><div class="heart-float">♥</div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+    
+    <div class="features-section">
+        <div class="container">
+            <div class="section-header animate-on-scroll"><span class="section-tag">Cómo funciona</span><h2>Simple, directo, real</h2></div>
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll"><div class="feature-icon"><i class="fas fa-brain"></i></div><h3>Compatibilidad inteligente</h3><p>Analizamos más de 80 señales de tus intereses para mostrarte conexiones con sentido.</p></div>
+                <div class="feature-card animate-on-scroll"><div class="feature-icon"><i class="fas fa-shield-alt"></i></div><h3>100% privado</h3><p>Tu número y tu ubicación exacta nunca son visibles.</p></div>
+                <div class="feature-card animate-on-scroll"><div class="feature-icon"><i class="fas fa-fire"></i></div><h3>Swipe intuitivo</h3><p>Explora perfiles con un desliz. Like, Nope o Super Nexus.</p></div>
+                <div class="feature-card animate-on-scroll"><div class="feature-icon"><i class="fas fa-comments"></i></div><h3>Chat sin barreras</h3><p>Cuando hay match, empieza la conversación al instante.</p></div>
+            </div>
+        </div>
+    </div>
 
-        <section class="section" id="sectionExplore">
-            <div class="app-header">
-                <h2>Descubrir</h2>
-                <div class="profiles-toolbar">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="searchProfiles" placeholder="Buscar..." oninput="filterProfiles()">
-                    </div>
-                    <select id="filterGender" onchange="filterProfiles()"><option value="">Género</option><option value="hombre">Hombres</option><option value="mujer">Mujeres</option></select>
+    <div class="recent-section">
+        <div class="container">
+            <div class="section-header animate-on-scroll"><span class="section-tag">Perfiles destacados</span><h2>Conoce a la comunidad</h2></div>
+            <div class="profiles-preview-grid" id="recentProfilesHome"></div>
+            <div class="text-center mt-4 animate-on-scroll"><button class="btn btn-primary" onclick="showSection('explore')">Ver todos los perfiles <i class="fas fa-arrow-right"></i></button></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="sectionExplore">
+    <div class="container page-section">
+        <div class="section-header"><span class="section-tag">Descubrir</span><h2>Explorar perfiles</h2></div>
+        <div class="profiles-toolbar">
+            <div class="search-box"><i class="fas fa-search"></i><input type="text" id="searchProfiles" placeholder="Buscar..." oninput="filterProfiles()"></div>
+            <div class="filter-group">
+                <select id="filterGender" onchange="filterProfiles()"><option value="">Género</option><option value="hombre">Hombres</option><option value="mujer">Mujeres</option></select>
+                <select id="filterLooking" onchange="filterProfiles()"><option value="">Qué buscan</option><option value="relacion">Relación seria</option><option value="casual">Algo casual</option></select>
+            </div>
+            <button class="btn btn-primary" onclick="handleNewProfile()"><i class="fas fa-plus"></i> Completar perfil</button>
+        </div>
+        <div class="profiles-grid" id="profilesList"></div>
+    </div>
+</section>
+
+<section class="section" id="sectionMatches">
+    <div class="container page-section">
+        <div class="section-header"><span class="section-tag">Conexiones</span><h2>Mis Matches</h2></div>
+        <div id="matchesContainer"></div>
+    </div>
+</section>
+
+<section class="section" id="sectionStats">
+    <div class="container page-section">
+        <div class="section-header"><span class="section-tag">Datos</span><h2>Estadísticas</h2></div>
+        <div class="stats-grid">
+            <div class="stat-card glass-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-info"><h3 id="totalUsersStat">0</h3><p>Usuarios activos</p></div></div>
+            <div class="stat-card glass-card"><div class="stat-icon"><i class="fas fa-heart"></i></div><div class="stat-info"><h3 id="totalMatchesStat">0</h3><p>Matches totales</p></div></div>
+        </div>
+        <div class="charts-grid">
+            <div class="chart-card"><h3><i class="fas fa-chart-pie"></i> Usuarios por interés</h3><div id="interestChart"></div></div>
+            <div class="chart-card"><h3><i class="fas fa-chart-bar"></i> Qué buscan</h3><div id="lookingChart"></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="sectionAbout">
+    <div class="container page-section">
+        <div class="section-header"><span class="section-tag">Nexus</span><h2>Conexiones que importan</h2></div>
+        <div class="about-content" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+            <div class="feature-card"><h3>¿Qué es Nexus?</h3><p>Plataforma que va más allá del físico.</p></div>
+            <div class="feature-card"><h3>Nuestra filosofía</h3><p>Construir relaciones reales.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="sectionMymatches"><div class="container page-section"><div id="myMatchesList"></div></div></section>
+
+<section class="section" id="sectionProfile">
+    <div class="container page-section">
+        <div class="profile-page-card">
+            <div class="profile-page-header">
+                <div class="profile-page-avatar" id="profileAvatar">U</div>
+                <div class="profile-page-info">
+                    <h3 id="profileName">Usuario</h3><p id="profileEmail"></p><p id="profileCity"></p><span class="profile-page-badge" id="profileBadge">Miembro</span>
                 </div>
             </div>
-            <div class="profiles-grid app-grid" id="profilesList"></div>
-        </section>
+            <div class="profile-page-stats">
+                <div class="profile-page-stat"><strong id="profileMatches">0</strong><span>Matches</span></div>
+                <div class="profile-page-stat"><strong id="profileLikes">0</strong><span>Likes</span></div>
+                <div class="profile-page-stat"><strong id="profileDate">-</strong><span>Miembro desde</span></div>
+            </div>
+        </div>
+    </div>
+</section>
 
-        <section class="section" id="sectionMatches">
-            <div class="app-header"><h2>Chats Activos</h2></div>
-            <div id="matchesContainer"></div>
-            <div id="myMatchesList"></div> </section>
+<section class="section" id="sectionSettings">
+    <div class="container page-section">
+        <div class="section-header"><span class="section-tag">Configuración</span><h2>Ajustes</h2></div>
+        <div class="settings-grid">
+            <div class="settings-section-card">
+                <h3>Apariencia</h3>
+                <div class="setting-row"><div>Modo claro</div><label class="toggle-switch"><input type="checkbox" id="toggleLightMode" onchange="toggleTheme(this)"><span class="toggle-slider"></span></label></div>
+            </div>
+            <div class="settings-section-card">
+                <h3>Cuenta</h3>
+                <button class="btn btn-outline" style="width:100%;margin-bottom:10px" onclick="logout()">Cerrar sesión</button>
+            </div>
+        </div>
+    </div>
+</section>
 
-        <section class="section" id="sectionStats"><div class="app-header"><h2>Estadísticas</h2></div><div class="stats-grid"><div class="stat-card"><h3 id="totalUsersStat">0</h3><p>Usuarios</p></div><div class="stat-card"><h3 id="totalMatchesStat">0</h3><p>Matches</p></div></div><div id="interestChart"></div><div id="lookingChart"></div></section>
-        
-        <section class="section" id="sectionProfile"><div class="app-header"><h2>Perfil</h2></div><div class="profile-page-avatar" id="profileAvatar">U</div><h3 id="profileName">Usuario</h3><p id="profileEmail"></p><p id="profileCity"></p><span id="profileBadge"></span></section>
-        
-        <section class="section" id="sectionSettings"><div class="app-header"><h2>Ajustes</h2></div><input type="checkbox" id="toggleLightMode" onchange="toggleTheme(this)"><input type="range" id="distRange" oninput="updateRangeLabel('distRange','distVal','km')"></section>
-        
-        <section class="section" id="sectionAdmin"><div class="app-header"><h2>Admin</h2></div><button onclick="switchAdminTab('adminUsers')">Usuarios</button><div id="adminUsers" class="admin-panel active"><tbody id="adminUsersTable"></tbody></div><div id="adminProfiles" class="admin-panel"><tbody id="adminProfilesTable"></tbody></div></section>
+<section class="section" id="sectionAdmin">
+    <div class="container page-section">
+        <div class="section-header"><span class="section-tag">Admin</span><h2>Panel de administración</h2></div>
+        <div class="admin-tabs">
+            <button class="admin-tab active" onclick="switchAdminTab('adminUsers')">Usuarios</button>
+            <button class="admin-tab" onclick="switchAdminTab('adminProfiles')">Perfiles</button>
+        </div>
+        <div class="admin-panel active" id="adminUsers"><div class="admin-table-container"><table class="admin-table"><thead><tr><th>Nombre</th><th>Email</th><th>Rol</th><th>Acciones</th></tr></thead><tbody id="adminUsersTable"></tbody></table></div></div>
+        <div class="admin-panel" id="adminProfiles"><div class="admin-table-container"><table class="admin-table"><thead><tr><th>Nombre</th><th>Ciudad</th><th>Acciones</th></tr></thead><tbody id="adminProfilesTable"></tbody></table></div></div>
+        <div class="admin-panel" id="adminOverview"></div>
+    </div>
+</section>
 
-    </main>
+<div class="modal-overlay" id="loginModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+        <div class="modal-header"><h2>Bienvenido</h2><p>Entra a tu cuenta</p></div>
+        
+        <div class="method-tabs">
+            <button class="method-tab active" onclick="switchLoginMethod('phone', this)">Teléfono</button>
+            <button class="method-tab" onclick="switchLoginMethod('email', this)">Email</button>
+        </div>
+
+        <div id="loginPhone">
+            <div id="phoneStep1">
+                <div class="form-group"><label>Número</label><div style="display:flex;gap:8px"><select id="countryCode"><option value="+57">+57</option></select><input type="tel" id="phoneInput" placeholder="300 123 4567" style="flex:1"></div></div>
+                <button class="btn btn-primary btn-full" id="sendSmsBtn" onclick="sendSMS()">Enviar código</button>
+            </div>
+            <div id="phoneStep2" style="display:none">
+                <div class="otp-group">
+                    <input class="otp-input" maxlength="1"><input class="otp-input" maxlength="1"><input class="otp-input" maxlength="1"><input class="otp-input" maxlength="1"><input class="otp-input" maxlength="1"><input class="otp-input" maxlength="1">
+                </div>
+                <button class="btn btn-primary btn-full" id="verifyOtpBtn" onclick="verifyOTPCode()">Verificar</button>
+            </div>
+        </div>
+
+        <div id="loginEmail" style="display:none">
+            <div class="form-group"><label>Email</label><input type="email" id="loginEmailInput"></div>
+            <div class="form-group"><label>Contraseña</label><input type="password" id="loginPasswordInput"></div>
+            <div style="display:flex;gap:10px"><button class="btn btn-primary" style="flex:1" onclick="loginWithEmail()">Entrar</button><button class="btn btn-outline" style="flex:1" onclick="registerWithEmail()">Registrarse</button></div>
+        </div>
+    </div>
 </div>
 
-<div class="modal-overlay" id="loginModal"><div class="modal"><input id="loginEmailInput"><input id="loginPasswordInput"><button id="btnLogin" onclick="loginWithEmail()">Entrar</button><div id="recaptcha-container"></div></div></div>
-<div class="modal-overlay" id="viewProfileModal"><div class="modal"><div id="viewProfileContent"></div></div></div>
-<div class="modal-overlay" id="matchModal"><div class="modal"><div id="matchedName"></div><div id="myMatchAv"></div><div id="theirMatchAv"></div></div></div>
-<div class="modal-overlay" id="confirmModal"><div class="modal"><button id="confirmAction"></button></div></div>
-<div class="modal-overlay" id="profileSetupModal"><div class="modal"><div id="setupProgressFill"></div><input id="setupName"><input id="setupBirthdate"><button id="finishSetupBtn" onclick="finishSetup()">Fin</button></div></div>
-<div id="toastContainer"></div>
+<div class="modal-overlay" id="viewProfileModal"><div class="modal modal-lg"><button class="modal-close" onclick="closeModal('viewProfileModal')">&times;</button><div id="viewProfileContent"></div></div></div>
+<div class="modal-overlay" id="matchModal"><div class="modal" style="text-align:center"><button class="modal-close" onclick="closeModal('matchModal')">&times;</button><h2>¡Es un Match!</h2><div id="matchedName"></div><div id="myMatchAv"></div><div id="theirMatchAv"></div><button class="btn btn-primary" onclick="closeModal('matchModal');showSection('mymatches')">Ver chats</button></div></div>
+<div class="modal-overlay" id="confirmModal"><div class="modal"><h2 id="confirmTitle">Confirmar</h2><p id="confirmMessage"></p><button class="btn btn-primary" id="confirmAction">Confirmar</button></div></div>
 
-<script src="js/app.js"></script>
+<div class="modal-overlay" id="profileSetupModal">
+    <div class="modal modal-lg">
+        <div class="progress-bar-wrap"><div class="progress-meta"><span id="setupStepLabel"></span><span id="setupStepPct"></span></div><div class="progress-track"><div class="progress-fill" id="setupProgressFill"></div></div></div>
+        <div class="setup-step active" id="setupStep1"><h2>¿Cómo te llamas?</h2><input type="text" id="setupName"><input type="date" id="setupBirthdate"><button class="btn btn-primary" onclick="setupNext(1)">Continuar</button></div>
+        <div class="setup-step" id="setupStep2" style="display:none"><h2>Género</h2><div id="genderGrid"><button class="choice-btn" data-val="hombre">Hombre</button><button class="choice-btn" data-val="mujer">Mujer</button></div><div id="showMeGrid"><button class="choice-btn" data-val="hombres">Hombres</button><button class="choice-btn" data-val="mujeres">Mujeres</button></div><button class="btn btn-primary" onclick="setupNext(2)">Continuar</button></div>
+        <div class="setup-step" id="setupStep3" style="display:none"><h2>Intereses</h2><textarea id="setupBio"></textarea><div id="interestsGrid"></div><button class="btn btn-primary" onclick="setupNext(3)">Continuar</button></div>
+        <div class="setup-step" id="setupStep4" style="display:none"><h2>Fotos</h2><div id="photosGridSetup"></div><button class="btn btn-primary" onclick="setupNext(4)">Continuar</button></div>
+        <div class="setup-step" id="setupStep5" style="display:none"><h2>¿Qué buscas?</h2><div id="lookingGrid"><button class="choice-btn" data-val="relacion">Relación</button><button class="choice-btn" data-val="casual">Casual</button></div><button class="btn btn-primary" id="finishSetupBtn" onclick="finishSetup()">Finalizar</button></div>
+    </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<button class="fab-button" id="fabButton" onclick="handleStartMatch()"><i class="fas fa-fire"></i></button>
+
+<script src="app.js"></script>
 </body>
 </html>
